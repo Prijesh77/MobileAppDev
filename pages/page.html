@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Collapsible Content</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 90%;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        .collapsible-header {
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+        .collapsible-header:hover {
+            background-color: #e5e7eb;
+        }
+        .collapsible-content {
+            display: none;
+        }
+        .arrow {
+            transition: transform 0.3s ease;
+        }
+        .open .arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+
+    <div class="container bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800 text-center">Mobile Information Panels</h1>
+
+        <!-- Panel 1 -->
+        <div class="collapsible-item border-b border-gray-200 py-4">
+            <div class="collapsible-header flex items-center justify-between p-3 rounded-md font-semibold text-gray-700 hover:bg-gray-50">
+                <span class="flex-1">What is a Mobile Web Page?</span>
+                <span class="arrow text-xl text-gray-500 transform transition-transform duration-300">›</span>
+            </div>
+            <div class="collapsible-content p-4 text-gray-600 leading-relaxed bg-gray-50 mt-2 rounded-md">
+                <p>A mobile web page is a website designed and optimized to be viewed on a mobile device, such as a smartphone or tablet. It often features a responsive layout, touch-friendly navigation, and faster load times.</p>
+            </div>
+        </div>
+
+        <!-- Panel 2 -->
+        <div class="collapsible-item border-b border-gray-200 py-4">
+            <div class="collapsible-header flex items-center justify-between p-3 rounded-md font-semibold text-gray-700 hover:bg-gray-50">
+                <span class="flex-1">Why Use jQuery?</span>
+                <span class="arrow text-xl text-gray-500 transform transition-transform duration-300">›</span>
+            </div>
+            <div class="collapsible-content p-4 text-gray-600 leading-relaxed bg-gray-50 mt-2 rounded-md">
+                <p>jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, and animation much simpler, making it a great tool for adding interactivity to web pages.</p>
+            </div>
+        </div>
+
+        <!-- Panel 3 -->
+        <div class="collapsible-item border-b border-gray-200 py-4">
+            <div class="collapsible-header flex items-center justify-between p-3 rounded-md font-semibold text-gray-700 hover:bg-gray-50">
+                <span class="flex-1">What is the viewport meta tag?</span>
+                <span class="arrow text-xl text-gray-500 transform transition-transform duration-300">›</span>
+            </div>
+            <div class="collapsible-content p-4 text-gray-600 leading-relaxed bg-gray-50 mt-2 rounded-md">
+                <p>The viewport meta tag is crucial for mobile web development. It tells the browser to set the width of the page to the width of the device's screen, ensuring the page scales correctly and doesn't require users to pinch-to-zoom to read content.</p>
+            </div>
+        </div>
+
+        <!-- Panel 4 -->
+        <div class="collapsible-item py-4">
+            <div class="collapsible-header flex items-center justify-between p-3 rounded-md font-semibold text-gray-700 hover:bg-gray-50">
+                <span class="flex-1">Why is mobile-first design important?</span>
+                <span class="arrow text-xl text-gray-500 transform transition-transform duration-300">›</span>
+            </div>
+            <div class="collapsible-content p-4 text-gray-600 leading-relaxed bg-gray-50 mt-2 rounded-md">
+                <p>Mobile-first design is an approach where you start designing and developing for mobile devices first. This ensures the core functionality and content are prioritized for smaller screens, leading to a better user experience and often better performance. It is easier to add more complex features later for larger screens than it is to strip down a complex desktop site for mobile.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            
+            $('.collapsible-header').on('click', function(){
+                const content = $(this).next('.collapsible-content');
+                content.slideToggle(300);
+                $(this).toggleClass('open');
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Image Gallery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 90%;
+            margin: 2rem auto;
+        }
+        .gallery-image {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            width: 100%;
+            height: 200px; /* Fixed height for uniform size */
+            object-fit: cover; /* Crop and fit nicely */
+            border-radius: 0.5rem;
+        }
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 0.75rem;
+        }
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-button:hover {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+
+    <div class="container bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800 text-center">Mobile Image Gallery</h1>
+        <p class="text-gray-600 text-center mb-6">Click on an image to view it in full screen.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Gallery Item 1 -->
+            <img class="gallery-image shadow-md" src="https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582748_1280.png" alt="Placeholder image 1">
+            
+            <!-- Gallery Item 2 -->
+            <img class="gallery-image shadow-md" src="https://th.bing.com/th/id/R.ec78784fa4635e0a570b6d2dc857c3bd?rik=ZPIbjx44gd8XLw&pid=ImgRaw&r=0" alt="Placeholder image 2">
+            
+            <!-- Gallery Item 3 -->
+            <img class="gallery-image shadow-md" src="https://logos-world.net/wp-content/uploads/2023/02/JavaScript-Symbol.png" alt="Placeholder image 3">
+
+        </div>
+    </div>
+
+    <!-- The Modal (Hidden by default) -->
+    <div id="imageModal" class="modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            const modal = $('#imageModal');
+            const modalImg = $('#modalImage');
+
+            // Handle thumbnail clicks to open modal
+            $('.gallery-image').on('click', function(){
+                modal.fadeIn(300);
+                modalImg.attr('src', $(this).attr('src'));
+            });
+
+            // Handle close button click to close modal
+            $('.close-button').on('click', function(){
+                modal.fadeOut(300);
+            });
+
+            // Close modal when clicking outside the image
+            modal.on('click', function(event) {
+                if (event.target.id === 'imageModal') {
+                    modal.fadeOut(300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

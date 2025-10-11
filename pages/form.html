@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Form Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 90%;
+            margin: 2rem auto;
+        }
+        .error-message {
+            display: none;
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .has-error {
+            border-color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+
+    <div class="container bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-6 text-gray-800 text-center">Contact Form</h1>
+        <p class="text-gray-600 text-center mb-6">A form with client-side validation using jQuery.</p>
+        
+        <form id="contactForm">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-medium mb-1">Name</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" required>
+                <div class="error-message" id="name-error">Name is required.</div>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
+                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" required>
+                <div class="error-message" id="email-error">Please enter a valid email address.</div>
+            </div>
+
+            <div class="mb-6">
+                <label for="message" class="block text-gray-700 font-medium mb-1">Message</label>
+                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors" required></textarea>
+                <div class="error-message" id="message-error">Message is required.</div>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 transition-colors shadow-md">Submit</button>
+        </form>
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // Handle form submission
+            $('#contactForm').on('submit', function(event) {
+                // Prevent the form from submitting by default
+                event.preventDefault();
+
+                // Clear previous error messages and styles
+                $('.error-message').fadeOut(200);
+                $('input, textarea').removeClass('has-error');
+
+                let isValid = true;
+
+                // Validate Name
+                const name = $('#name');
+                if (name.val().trim() === '') {
+                    isValid = false;
+                    name.addClass('has-error');
+                    $('#name-error').fadeIn(200);
+                }
+
+                // Validate Email
+                const email = $('#email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.val())) {
+                    isValid = false;
+                    email.addClass('has-error');
+                    $('#email-error').fadeIn(200);
+                }
+
+                // Validate Message
+                const message = $('#message');
+                if (message.val().trim() === '') {
+                    isValid = false;
+                    message.addClass('has-error');
+                    $('#message-error').fadeIn(200);
+                }
+
+                // If the form is valid, show a success message
+                if (isValid) {
+                    alert('Form submitted successfully!');
+                    // In a real application, you would send the data to a server here.
+                }
+            });
+        });
+    </script>
+</body>
+</html>
